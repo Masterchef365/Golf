@@ -108,6 +108,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let epochs: u32 = args.next().unwrap().parse().unwrap();
     let decay: f32 = args.next().unwrap().parse().unwrap();
     let units: usize = args.next().unwrap().parse().unwrap();
+    let save_path: String = args.next().unwrap();
 
     let mut best_score = 9999.9;
     let mut best_net: Option<NeuralNet> = None;
@@ -129,7 +130,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         let learning_rate = 1.0 / (iter as f32).powf(decay);//1.0 / (best_score as f32 * decay);
 
         print!(
-            "\rEpoch {}/{} ({:.00}%) [Learning rate: {:.04}, All time best: {}]: (Best: {}, Avg: {:.04})",
+            "\rEpoch {}/{} ({:.00}%) [Learning rate: {:.04}, Best avg: {:.04}]: (Best: {}, Avg: {:.04})",
             iter, epochs, iter as f32 * 100.0 / epochs as f32, learning_rate, best_score, epoch_best_score, mean
         );
         use std::io::Write;
@@ -156,6 +157,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
     println!();
+
+    if let Some(net) = best_net {
+        println!("Saving model to {}...", save_path);
+        net.save(save_path)?;
+    }
 
     Ok(())
 }

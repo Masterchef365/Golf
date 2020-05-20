@@ -1,16 +1,16 @@
 use rand::distributions::Uniform;
 use rand::{thread_rng, Rng};
-//use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize};
 use std::fs::File;
 use std::path::Path;
 
-#[derive(Debug, Clone)]//, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 struct Layer {
     weights: Box<[f32]>,
     biases: Box<[f32]>,
     input_size: usize,
     output_size: usize,
-    //#[serde(skip)]
+    #[serde(skip)]
     out_buf: Box<[f32]>,
 }
 
@@ -62,7 +62,7 @@ impl Layer {
     }
 }
 
-#[derive(Debug, Clone)]//, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct NeuralNet {
     hidden_0: Layer,
     hidden_1: Layer,
@@ -72,9 +72,9 @@ pub struct NeuralNet {
 impl NeuralNet {
     pub fn new() -> Self {
         Self {
-            hidden_0: Layer::new(97, 10),
-            hidden_1: Layer::new(10, 9),
-            hidden_2: Layer::new(9, 9),
+            hidden_0: Layer::new(97, 60),
+            hidden_1: Layer::new(60, 30),
+            hidden_2: Layer::new(30, 9),
         }
     }
 
@@ -90,7 +90,6 @@ impl NeuralNet {
         self.hidden_2.fuzz(learning_rate);
     }
 
-    /*
     pub fn save(&self, path: impl AsRef<Path>) -> Result<(), Box<dyn std::error::Error>> {
         let mut file = File::create(path)?;
         bincode::serialize_into(&mut file, self)?;
@@ -101,6 +100,5 @@ impl NeuralNet {
         let mut file = File::open(path)?;
         Ok(bincode::deserialize_from(&mut file)?)
     }
-    */
 }
 

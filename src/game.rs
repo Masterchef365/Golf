@@ -144,6 +144,7 @@ pub struct Game {
     pub discard: Deck,
 }
 
+#[derive(Debug)]
 pub enum Play {
     Nop,
     SwapDiscard(usize),

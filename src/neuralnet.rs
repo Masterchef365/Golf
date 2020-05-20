@@ -17,7 +17,7 @@ struct Layer {
 impl Layer {
     pub fn new(input_size: usize, output_size: usize) -> Self {
         let size = input_size * output_size;
-        let unif = Uniform::new(0.0, 1.0);
+        let unif = Uniform::new(-1.0, 1.0);
         let rng = thread_rng();
         Self {
             weights: rng.sample_iter(&unif).take(size).collect(),
@@ -72,9 +72,9 @@ pub struct NeuralNet {
 impl NeuralNet {
     pub fn new() -> Self {
         Self {
-            hidden_0: Layer::new(97, 60),
-            hidden_1: Layer::new(60, 60),
-            hidden_2: Layer::new(60, 9),
+            hidden_0: Layer::new(97, 10),
+            hidden_1: Layer::new(10, 9),
+            hidden_2: Layer::new(9, 9),
         }
     }
 

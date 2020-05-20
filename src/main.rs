@@ -109,7 +109,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let decay: f32 = args.next().unwrap().parse().unwrap();
     let units: usize = args.next().unwrap().parse().unwrap();
 
-    let mut best_score = 1.9;
+    let mut best_score = 9999.9;
     let mut best_net: Option<NeuralNet> = None;
 
     let mut gene_pool = Vec::with_capacity(units);
@@ -126,7 +126,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         pairs.sort_by(|(_, a), (_, b)| a.partial_cmp(b).unwrap());
         let (epoch_best_net, epoch_best_score) = *pairs.first().unwrap();
 
-        let learning_rate = 0.1;//1.0 / (best_score as f32 * decay);
+        let learning_rate = 1.0 / (iter as f32).powf(decay);//1.0 / (best_score as f32 * decay);
 
         print!(
             "\rEpoch {}/{} ({:.00}%) [Learning rate: {:.04}, All time best: {}]: (Best: {}, Avg: {:.04})",

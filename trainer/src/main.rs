@@ -31,7 +31,7 @@ fn eval(mut models: Vec<NeuralNet>, holes: usize) -> (NeuralNet, u32) {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut args = std::env::args().skip(1).peekable();
     if args.peek().is_none() {
-        println!("Usage: n_epochs decay_rate units players holes save_path");
+        println!("Usage: n_epochs decay_rate units players holes keep_top_frac save_path");
         return Ok(());
     }
 
@@ -40,6 +40,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let units: usize = args.next().unwrap().parse().unwrap();
     let players: usize = args.next().unwrap().parse().unwrap();
     let holes: usize = args.next().unwrap().parse().unwrap();
+    let keep_top_frac: usize = args.next().unwrap().parse().unwrap();
     let save_path: String = args.next().unwrap();
 
     let mut best_score = 9999.9;
@@ -79,8 +80,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             best_net = Some(scored_nets.first().unwrap().0.clone());
         }
 
-        // Only keep the top 8 scores
-        scored_nets.truncate(scored_nets.len() / 8);
+        // Only keep the top 1/8 scores
+        scored_nets.truncate(scored_nets.len() / keep_top_frac);
 
         // Random duping
         for _ in 0..units {

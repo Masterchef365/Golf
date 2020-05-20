@@ -16,6 +16,7 @@ fn run_net_through(model: &mut NeuralNet, hand: &Hand, faceup: &Card) -> Play {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut game = Game::new(2);
     let mut player_a = NeuralNet::load("golf.bc")?;
+    dbg!(&player_a);
     let mut player_b = player_a.clone();
     for _ in 0..18 {
         println!("\u{1b}[93mPlayer A");

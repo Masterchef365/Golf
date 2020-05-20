@@ -164,7 +164,7 @@ impl Game {
 
         // Deal
         let mut players = Vec::with_capacity(n_players);
-        for player in 0..n_players {
+        for _ in 0..n_players {
             let mut cards = Vec::with_capacity(CARDS_PER_HAND);
             for _ in 0..CARDS_PER_ROW * ROWS_PER_HAND {
                 cards.push(deck.pop().expect("Out of cards"));
@@ -212,6 +212,7 @@ impl Game {
             }
             Play::Draw(idx) => {
                 let discarded = std::mem::replace(&mut hand.cards[idx], self.draw.pop().unwrap());
+                hand.visibility[idx] = true;
                 self.discard.push(discarded);
             }
         }

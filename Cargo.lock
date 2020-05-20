@@ -23,16 +23,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "08c48aae112d48ed9f069b33538ea9e3e90aa263cfa3d1c24309612b1f7472de"
 
 [[package]]
-name = "card_golf_ai"
-version = "0.1.0"
-dependencies = [
- "bincode",
- "rand",
- "rayon",
- "serde",
-]
-
-[[package]]
 name = "cfg-if"
 version = "0.1.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -90,6 +80,13 @@ name = "either"
 version = "1.5.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bb1f6b1ce1c140482ea30ddd3335fc0024ac7ee112895426e0a629a6c20adfe3"
+
+[[package]]
+name = "evaluator"
+version = "0.1.0"
+dependencies = [
+ "trainer",
+]
 
 [[package]]
 name = "getrandom"
@@ -272,6 +269,16 @@ dependencies = [
  "proc-macro2",
  "quote",
  "unicode-xid",
+]
+
+[[package]]
+name = "trainer"
+version = "0.1.0"
+dependencies = [
+ "bincode",
+ "rand",
+ "rayon",
+ "serde",
 ]
 
 [[package]]
